@@ -182,7 +182,7 @@ useState<SatelliteProcessResponse | null>(null);
 
   useEffect(() => {
     api.advancedModules()
-      .then((data) => setModules(data.modules))
+      .then((data: any) => setModules(data.modules))
       .catch(() => setModules([]));
     api.analytics()
       .then(setAnalytics)
@@ -261,7 +261,7 @@ useState<SatelliteProcessResponse | null>(null);
           const result = await api.nearbyRisk(lat, lon, 3000);
           setNearby(result.nearby);
           setSelected(result.current_spot);
-          setDetections((current) => [result.current_spot, ...result.nearby, ...current.filter((item) => !item.id.startsWith("SPOT-") && !result.nearby.some((near) => near.id === item.id)).slice(0, 80)]);
+          setDetections((current) => [result.current_spot, ...result.nearby, ...current.filter((item: Detection) => !item.id.startsWith("SPOT-") && !result.nearby.some((near: Detection) => near.id === item.id)).slice(0, 80)]);
           setStatus("Tracking nearby risk zones. Updated " + result.updated_at + ".");
         } catch {
           setStatus("Could not update nearby risk from backend.");
@@ -316,7 +316,7 @@ useState<SatelliteProcessResponse | null>(null);
       }
       if (result.whatsapp_url) window.open(result.whatsapp_url, "_blank");
       setStatus("WhatsApp alert message prepared for " + selected.authority_name + ".");
-    } catch (error) {
+    } catch (error: unknown) {
       setStatus(error instanceof Error ? error.message : "Alert could not be sent.");
     }
   };
@@ -515,8 +515,8 @@ const processSentinel = async()=>{
             <h3>State, District, Village, Place Name</h3>
           </div>
           <label>State<select value={stateName} onChange={(event) => chooseState(event.target.value)}><option>All</option>{catalog.states.map((item) => <option key={item.name}>{item.name}</option>)}</select></label>
-          <label>District<select value={district} onChange={(event) => { setDistrict(event.target.value); setVillage("All"); }}><option>All</option>{districtOptions.map((item) => <option key={item}>{item}</option>)}</select></label>
-          <label>Village/Ward<select value={village} onChange={(event) => setVillage(event.target.value)}><option>All</option>{villageOptions.map((item) => <option key={item}>{item}</option>)}</select></label>
+          <label>District<select value={district} onChange={(event) => { setDistrict(event.target.value); setVillage("All"); }}><option>All</option>{districtOptions.map((item: string) => <option key={item}>{item}</option>)}</select></label>
+          <label>Village/Ward<select value={village} onChange={(event) => setVillage(event.target.value)}><option>All</option>{villageOptions.map((item: string) => <option key={item}>{item}</option>)}</select></label>
           <label>Minimum<select value={minimumRisk} onChange={(event) => setMinimumRisk(event.target.value)}><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select></label>
           <label>Place name<input value={placeQuery} onChange={(event) => setPlaceQuery(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") loadStateRisk(); }} placeholder="Any village/town: Mandadam, VIT-AP, Tullur..." /></label>
           <button className="primary-action" onClick={() => loadStateRisk()}><Search size={18} /> Search</button>
@@ -655,7 +655,7 @@ satelliteSearch &&
 <p>Source: {satelliteSearch.source} | Date window: {satelliteSearch.date_window.start_date} to {satelliteSearch.date_window.end_date}</p>
 
 <div className="scene-list">
-{satelliteSearch.scenes.slice(0, 4).map((scene) => (
+{satelliteSearch.scenes.slice(0, 4).map((scene: any) => (
   <div key={scene.id}>
     <strong>{scene.id}</strong>
     <span>{scene.datetime || "Date unavailable"}</span>
@@ -702,8 +702,8 @@ Generated Outputs
 
 {satelliteOutput.indices && (
   <div className="formula-list">
-    {Object.entries(satelliteOutput.indices).map(([name, formula]) => (
-      <span key={name}>{name}: {formula}</span>
+    {Object.entries(satelliteOutput.indices).map(([name, formula]: [string, unknown]) => (
+      <span key={name}>{name}: {String(formula)}</span>
     ))}
   </div>
 )}
@@ -711,8 +711,8 @@ Generated Outputs
 {satelliteOutput.mode === "raster" && satelliteOutput.download_urls && (
   <>
     <div className="output-downloads">
-      {Object.entries(satelliteOutput.download_urls).map(([name, url]) => (
-        <a key={name} className="secondary-action" href={url}><FileDown size={16} /> {name.toUpperCase()}</a>
+      {Object.entries(satelliteOutput.download_urls).map(([name, url]: [string, unknown]) => (
+        <a key={name} className="secondary-action" href={String(url)}><FileDown size={16} /> {name.toUpperCase()}</a>
       ))}
       {satelliteOutput.waterbody_download_url && (
         <a className="primary-action" href={satelliteOutput.waterbody_download_url}><FileDown size={16} /> Waterbodies GeoJSON</a>
@@ -757,7 +757,7 @@ Generated Outputs
             <div>
               <h4>Disease trend</h4>
               <div className="mini-bars">
-                {(analytics?.disease_trend ?? []).map((item) => (
+                {(analytics?.disease_trend ?? []).map((item: any) => (
                   <div key={item.disease}>
                     <span>{diseaseLabels[item.disease] ?? item.disease}</span>
                     <meter min={0} max={100} value={item.average} />
@@ -769,7 +769,7 @@ Generated Outputs
             <div>
               <h4>Monthly water trend</h4>
               <div className="month-bars">
-                {(analytics?.monthly_trend ?? []).map((item) => (
+                {(analytics?.monthly_trend ?? []).map((item: any) => (
                   <div key={item.month}>
                     <span style={{ height: Math.max(8, item.water_bodies / 2) }} />
                     <small>{item.month}</small>
@@ -786,7 +786,7 @@ Generated Outputs
             <h3>Implemented project coverage</h3>
           </div>
           <div className="module-grid">
-            {modules.map((module) => (
+            {modules.map((module: ModuleStatus) => (
               <article key={module.name}>
                 <strong>{module.name}</strong>
                 <span>{module.status}</span>
@@ -796,7 +796,7 @@ Generated Outputs
           </div>
           {adminRoles && (
             <div className="role-strip">
-              {adminRoles.roles.map((role) => (
+              {adminRoles.roles.map((role: any) => (
                 <span key={role.role}>{role.role}: {role.dashboard}</span>
               ))}
             </div>
@@ -817,7 +817,7 @@ Generated Outputs
             Operational map: {validation?.operational_map_source ?? "loading"}. Neural-network metrics are displayed only after labelled masks and predictions are supplied.
           </p>
           <div className="model-readiness-grid">
-            {(validation?.models ?? []).map((model) => (
+            {(validation?.models ?? []).map((model: any) => (
               <article key={model.name}>
                 <strong>{model.name}</strong>
                 <span className={model.trained_weights ? "status-ok" : "status-missing"}>
@@ -830,11 +830,11 @@ Generated Outputs
           <div className="validation-columns">
             <div>
               <h4>Evaluation engine available</h4>
-              <ul>{(validation?.available_when_data_supplied ?? []).map((item) => <li key={item}>{item}</li>)}</ul>
+              <ul>{(validation?.available_when_data_supplied ?? []).map((item: string) => <li key={item}>{item}</li>)}</ul>
             </div>
             <div>
               <h4>Not claimed by this prototype</h4>
-              <ul>{(validation?.not_claimed ?? []).map((item) => <li key={item}>{item}</li>)}</ul>
+              <ul>{(validation?.not_claimed ?? []).map((item: string) => <li key={item}>{item}</li>)}</ul>
             </div>
           </div>
           {validation?.experiment && (
@@ -845,7 +845,7 @@ Generated Outputs
               </div>
               <div className="metrics-table">
                 <strong>Model</strong><strong>Precision</strong><strong>Recall</strong><strong>F1</strong><strong>IoU</strong><strong>Dice</strong>
-                {Object.entries(validation.experiment.models).map(([name, result]) => (
+                {Object.entries(validation.experiment.models).map(([name, result]: [string, any]) => (
                   <div className="metrics-row" key={name}>
                     <span>{name}</span>
                     <span>{result.test.metrics.precision == null ? "NA" : (result.test.metrics.precision * 100).toFixed(2) + "%"}</span>
@@ -911,7 +911,7 @@ Generated Outputs
                   <ul>{selected.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>
                   {selected.explainability && (
                     <div className="factor-bars">
-                      {selected.explainability.top_factors.map(([factor, value]) => (
+                      {selected.explainability.top_factors.map(([factor, value]: [string, number]) => (
                         <div key={factor}>
                           <span>{factor.replace(/_/g, " ")}</span>
                           <meter min={0} max={24} value={value} />
