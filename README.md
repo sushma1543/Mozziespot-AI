@@ -41,6 +41,36 @@ The following workflows are implemented and runnable:
 
 The deep-learning files for U-Net, DeepLabV3+, and SegFormer are model-ready scaffolds. Trained weights and labelled field data are not included, so the default demo uses the deterministic spectral/risk engines. Disease values are environmental suitability scores, not confirmed clinical cases.
 
+## Deep-Learning Readiness
+
+The repository includes research-ready implementations of:
+
+- U-Net for semantic water segmentation.
+- A lightweight DeepLabV3+-style model with atrous spatial pyramid pooling.
+- A lightweight SegFormer-style transformer model.
+- Weighted ensemble fusion of probability masks produced by multiple segmentation models.
+
+These models are training and evaluation scaffolds. They are not used for operational inference unless compatible labelled imagery and trained weight files are supplied. The live operational workflow uses Sentinel-2 spectral indices and deterministic environmental-risk rules, and it does not report unvalidated neural-network accuracy.
+
+## Future Dataset Integration
+
+When a suitable labelled dataset becomes available, the project can pair six-band Sentinel-2 image chips with binary water masks. The existing training pipeline supports augmentation, geographic event-level training/validation/test separation, BCE-Dice optimization, trained-weight export, and comparative evaluation of U-Net, lightweight DeepLabV3+-style, lightweight SegFormer-style, and ensemble outputs.
+
+Available evaluation measures include precision, recall, specificity, accuracy, F1 score, intersection over union, Dice coefficient, ROC and precision-recall curves, expected calibration error, and Brier score. Performance values must be reported only after training and evaluation on documented ground-truth labels.
+
+## Novelty and Contribution
+
+The principal contribution of MozzieSpot AI is an integrated, extensible, and claim-aware decision-support framework that combines:
+
+1. Sentinel-2 scene discovery and multispectral water analysis.
+2. Operational spectral-index mapping that remains usable without trained models.
+3. A modular pathway for comparing convolutional, atrous-convolution, transformer, and ensemble segmentation approaches when labelled data becomes available.
+4. Environmental mosquito-risk scoring linked to mapped waterbody evidence.
+5. Explainable factors, disease-suitability indicators, GIS visualization, location tracking, authority alerts, and exportable geospatial products.
+6. Explicit separation between operational rule-based results, experimental deep-learning readiness, and claims that require future validation.
+
+The novelty lies in this integrated framework, not in presenting U-Net, DeepLabV3+, or SegFormer as newly invented architectures.
+
 ## Quick Start With Docker
 
 ```powershell
@@ -139,6 +169,13 @@ This project is deployment-ready as a structured full-stack application. For rea
 5. Download the RGB preview, NDWI, MNDWI, NDVI, water mask, or waterbody GeoJSON from the generated outputs panel.
 
 Sentinel-2 is periodic Earth-observation imagery, not a live camera feed. The application has a live clock and browser GPS tracking, while satellite results update when a new scene is searched and processed.
+
+## Data Availability
+
+This project uses open-access Sentinel-2 satellite imagery obtained through the Copernicus Data Space Ecosystem and its STAC API. No separate labelled dataset was used in the operational workflow.
+
+- [Copernicus Data Space Ecosystem](https://dataspace.copernicus.eu/)
+- [Copernicus Data Space STAC API documentation](https://documentation.dataspace.copernicus.eu/APIs/STAC.html)
 
 ## Troubleshooting A Stale Docker Build
 
