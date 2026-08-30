@@ -3,7 +3,12 @@ import { ZoomIn, ZoomOut } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Detection } from "../lib/api";
 
-const colors = { Low: "#1f9d65", Medium: "#d49b12", High: "#ef6c00", Critical: "#c62828" };
+const colors: Record<Detection["risk_level"], string> = {
+  Low: "#1f9d65",
+  Medium: "#d49b12",
+  High: "#ef6c00",
+  Critical: "#c62828"
+};
 
 type Props = {
   detections: Detection[];
