@@ -51,7 +51,7 @@ MOZZIESPOT_REAL_DOWNLOAD=0
 ### 1.4 Get Your Backend URL
 After deployment, note the URL:
 ```
-https://mozziespot-backend.onrender.com
+https://mozziespot-ai.onrender.com
 ```
 
 You'll need this for the frontend configuration.
@@ -75,7 +75,7 @@ You'll need this for the frontend configuration.
 1. In project **Settings** → **Environment Variables**
 2. Add:
 ```
-VITE_API_BASE_URL=https://mozziespot-backend.onrender.com
+VITE_API_BASE_URL=https://mozziespot-ai.onrender.com
 ```
 
 ### 2.3 Configure API Rewrites (Optional)
