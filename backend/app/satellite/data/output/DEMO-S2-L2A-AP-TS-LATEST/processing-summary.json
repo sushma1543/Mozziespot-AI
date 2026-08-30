@@ -1,0 +1,77 @@
+{
+  "status": "completed",
+  "mode": "manifest",
+  "scene": {
+    "id": "DEMO-S2-L2A-AP-TS-LATEST",
+    "source": "offline demo fallback",
+    "collection": "sentinel-2-l2a",
+    "datetime": "2026-07-19T05:20:00Z",
+    "cloud_cover": 7.4,
+    "bbox": [
+      80.52,
+      16.25,
+      80.72,
+      16.45
+    ],
+    "assets": {
+      "B02": "demo://sentinel-2/B02.tif",
+      "B03": "demo://sentinel-2/B03.tif",
+      "B04": "demo://sentinel-2/B04.tif",
+      "B08": "demo://sentinel-2/B08.tif",
+      "B11": "demo://sentinel-2/B11.tif",
+      "B12": "demo://sentinel-2/B12.tif",
+      "QA60": "demo://sentinel-2/QA60.tif",
+      "SCL": "demo://sentinel-2/SCL.tif"
+    },
+    "asset_count": 8,
+    "note": "Online STAC search was unavailable, so the app returned a demo scene manifest.",
+    "date_window": {
+      "start_date": "2026-04-20",
+      "end_date": "2026-07-19"
+    }
+  },
+  "folder": "C:\\Users\\motam\\Documents\\Codex\\2026-06-26\\i\\work\\mozziespot2-advanced\\backend\\app\\satellite\\data\\raw\\DEMO-S2-L2A-AP-TS-LATEST",
+  "outputs": {
+    "rgb": "C:\\Users\\motam\\Documents\\Codex\\2026-06-26\\i\\work\\mozziespot2-advanced\\backend\\app\\satellite\\data\\output\\DEMO-S2-L2A-AP-TS-LATEST\\rgb_preview.tif",
+    "ndwi": "C:\\Users\\motam\\Documents\\Codex\\2026-06-26\\i\\work\\mozziespot2-advanced\\backend\\app\\satellite\\data\\output\\DEMO-S2-L2A-AP-TS-LATEST\\ndwi.tif",
+    "mndwi": "C:\\Users\\motam\\Documents\\Codex\\2026-06-26\\i\\work\\mozziespot2-advanced\\backend\\app\\satellite\\data\\output\\DEMO-S2-L2A-AP-TS-LATEST\\mndwi.tif",
+    "ndvi": "C:\\Users\\motam\\Documents\\Codex\\2026-06-26\\i\\work\\mozziespot2-advanced\\backend\\app\\satellite\\data\\output\\DEMO-S2-L2A-AP-TS-LATEST\\ndvi.tif",
+    "water": "C:\\Users\\motam\\Documents\\Codex\\2026-06-26\\i\\work\\mozziespot2-advanced\\backend\\app\\satellite\\data\\output\\DEMO-S2-L2A-AP-TS-LATEST\\water_mask.tif",
+    "water_mask": "C:\\Users\\motam\\Documents\\Codex\\2026-06-26\\i\\work\\mozziespot2-advanced\\backend\\app\\satellite\\data\\output\\DEMO-S2-L2A-AP-TS-LATEST\\water_mask.tif"
+  },
+  "download_urls": {},
+  "indices": {
+    "NDWI": "(B03 - B08) / (B03 + B08)",
+    "MNDWI": "(B03 - B11) / (B03 + B11)",
+    "NDVI": "(B08 - B04) / (B08 + B04)"
+  },
+  "cloud_mask": {
+    "QA60": "bits 10 and 11 removed",
+    "SCL": "clear classes 4, 5, and 6 retained"
+  },
+  "water_analysis": {
+    "classes": [
+      "Permanent lake",
+      "Temporary waterbody",
+      "Flood water",
+      "Stagnant water",
+      "Artificial pond",
+      "Construction pit",
+      "Drainage blockage"
+    ]
+  },
+  "missing_bands": [
+    "B02",
+    "B03",
+    "B04",
+    "B08",
+    "B11",
+    "B12",
+    "QA60",
+    "SCL"
+  ],
+  "statistics": null,
+  "waterbody_geojson": null,
+  "waterbody_download_url": null,
+  "message": "Scene manifest is ready. Download all Sentinel-2 bands to enable real raster processing. Missing: B02, B03, B04, B08, B11, B12, QA60, SCL."
+}

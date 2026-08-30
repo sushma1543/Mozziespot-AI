@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: mozziespot-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -b 0.0.0.0:$PORT run:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: DATA_DIR
+        value: /app/sample-data
+      - key: JWT_SECRET
+        scope: secret
+      - key: TELEGRAM_BOT_TOKEN
+        scope: secret
+      - key: TELEGRAM_CHAT_ID
+        scope: secret
+      - key: SMTP_HOST
+        scope: secret
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USER
+        scope: secret
+      - key: SMTP_PASSWORD
+        scope: secret
+      - key: ALERT_FROM_EMAIL
+        value: alerts@mozziespot.ai
+      - key: GOOGLE_MAPS_API_KEY
+        scope: secret
+      - key: COPERNICUS_STAC_URL
+        value: https://stac.dataspace.copernicus.eu/v1
+      - key: AWS_SENTINEL_STAC_URL
+        value: https://earth-search.aws.element84.com/v1
+      - key: MOZZIESPOT_REAL_DOWNLOAD
+        value: "0"
+    autoDeploy: false
+    plan: free

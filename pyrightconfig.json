@@ -1,0 +1,15 @@
+{
+  "include": [
+    "backend"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "frontend/node_modules",
+    "frontend/dist"
+  ],
+  "extraPaths": [
+    "backend"
+  ],
+  "pythonVersion": "3.11",
+  "typeCheckingMode": "basic"
+}

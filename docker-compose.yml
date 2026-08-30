@@ -1,0 +1,42 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - FLASK_ENV=production
+      - DATA_DIR=/app/sample-data
+      - JWT_SECRET=change-me-before-production
+      - TELEGRAM_BOT_TOKEN=
+      - TELEGRAM_CHAT_ID=
+      - SMTP_HOST=
+      - SMTP_USER=
+      - SMTP_PASSWORD=
+      - GOOGLE_MAPS_API_KEY=
+      - MOZZIESPOT_REAL_DOWNLOAD=0
+      - COPERNICUS_STAC_URL=https://stac.dataspace.copernicus.eu/v1
+      - AWS_SENTINEL_STAC_URL=https://earth-search.aws.element84.com/v1
+    volumes:
+      - ./sample-data:/app/sample-data:ro
+      - ./datasets/sen1floods11:/datasets/sen1floods11:ro
+      - satellite-data:/app/app/satellite/data
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  trainer:
+    profiles: ["training"]
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.train
+    volumes:
+      - ./datasets/sen1floods11:/datasets/sen1floods11:ro
+      - ./backend/model_weights:/app/model_weights
+      - ./backend/experiments:/app/experiments
+
+volumes:
+  satellite-data:

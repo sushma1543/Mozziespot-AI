@@ -1,0 +1,17 @@
+[
+  {
+    "scene_id": "S2A_DEMO_2026_06_01",
+    "source": "Synthetic Sentinel-2 style metadata for demo",
+    "cloud_cover": 7.4,
+    "bands": ["B03_GREEN", "B08_NIR", "B04_RED"],
+    "resolution_m": 10
+  },
+  {
+    "scene_id": "S2A_DEMO_2026_06_08",
+    "source": "Synthetic Sentinel-2 style metadata for demo",
+    "cloud_cover": 4.2,
+    "bands": ["B03_GREEN", "B08_NIR", "B04_RED"],
+    "resolution_m": 10
+  }
+]
+
